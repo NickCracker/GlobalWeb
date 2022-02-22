@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/registro.css') }}">
+    <title>Inventario Global</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color:#2c3e50">
+        <div class="container-fluid">
+            <label class="navbar-brand">
+                <div class="logo">
+                    <img src="{{ url_for('static',filename='img/Global.PNG')}}" style="width: 60px;">
+                    <label class="titulo" style="padding-left: 10px;color:aliceblue;">Global pharma</label>
+                </div>
+            </label>
+          </div>
+        </div>
+    </nav>
+    <body>
+        <div class="register-container">
+            <div class="register-form">
+                <form action="/Registrar", method="POST">
+                    <div class="register-image">
+                        <img src="{{ url_for('static',filename='img/Global.PNG')}}" style="width: 110px;"><br>
+                    </div>
+                    
+                        <label class="text">Nombre</label><br>
+                        <input style="width:300px;" type="text" name="nombre"><br>
+                        <label class="text">Apellido</label><br>
+                        <input style="width:300px;" type="text" name="apellido"><br>
+                        <label class="text">Usuario</label><br>
+                        <input style="width:300px;" type="text" name="usuario"><br>
+                        <label class="text">Correo</label><br>
+                        <input style="width:300px;" type="text" name="correo"><br>
+                    
+                    <!--
+                        {{ form.nombre.label }}
+                        <p style="width:300px;">{{ form.nombre() }}</p>
+                        {{ form.apellido.label }}
+                        <p style="width:300px;">{{ form.apellido }}</p>
+                        {{ form.usuario.label }}
+                        <p style="width:300px;">{{ form.usuario }}</p>
+                        {{ form.correo.label }}
+                        <p style="width:300px;">{{ form.correo }}</p>
+                    -->
+                    
+                    <div class="register-button">
+                        <button type="submit" class="btn btn-info">Registrarse</button>
+                        <a class="btn btn-secondary" href="/">Volver</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+    <footer style="color:aliceblue; background-color:#2c3e50;position:fixed ; bottom:0; width:100%">
+    </footer>
+</body>
+</html>

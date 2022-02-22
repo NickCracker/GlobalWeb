@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login.css') }}">
+    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+    <title>Inventario Global</title>
+</head>
+    <nav class="navbar navbar-expand-lg" style="background-color:#2c3e50; margin:0; padding:10px;">
+        <div class="container-fluid">
+            <label class="navbar-brand">
+                <div class="logo">
+                    <img src="{{ url_for('static',filename='img/Global.PNG')}}" style="width:60px;">
+                    <label class="titulo">Global pharma</label>
+                </div>
+            </label>
+          </div>
+        </div>
+    </nav>
+    <body>
+        <div class="login-container">
+            <!--
+            {% with messages = get_flashed_messages() %}
+            {% if messages%}
+            {% for message in messages %}
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Error </strong> el registro ha fallado</div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            -->
+            <div class="login-form">
+                <form action="/Permitir_acceso", method="POST">
+                    <div class="login-image">
+                        <img src="{{ url_for('static',filename='img/Global.PNG')}}" style="width:110px;"><br>
+                    </div>
+                    {{ form.csrf_token }}
+                    <label class="text">{{form.usuario.label}}</label><br>
+                    <p>{{form.usuario()}}</p>
+                    <label class="text">{{form.contraseña.label}}</label><br>
+                    <p>{{form.contraseña()}}</p>
+                    <div class="login-button">
+                        <button type="submit" class="btn btn-info">Ingresar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="registro">
+            <p>¿No tienes cuenta? Registrate <a href="/registro">aqui</a></p>
+        </div>
+    </body>
+    <footer style="color:aliceblue; background-color:#2c3e50;position:fixed ; bottom:0; width:100%">
+    </footer>
+</html>
+
+
+

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/buscador.css') }}">
+    <title>Inventario Global</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color:#2c3e50">
+        <div class="container-fluid">
+            <label class="navbar-brand" href="#">
+                <div class="logo">
+                    <img src="{{ url_for('static',filename='img/Global.PNG')}}" style="width: 60px;">
+                    <label class="titulo">Global pharma</label>
+                </div>
+            </label>
+            <form class="d-flex" action="/busqueda/buscar/1" method="POST" style="padding-right: 15px;">
+                <input class="form-control me-sm-2" type="text" placeholder="" name="entrada">
+                <button class="btn btn-info my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+        </div>
+    </nav>
+    <div class="buscador-container">
+        <table class="table table-striped" style="border: #2c3e50 solid ;">
+            <thead>
+                <tr>
+                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Codigo</td>
+                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Lote</td>
+                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Producto</td>
+                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Stock</td>
+                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Reserva</td>
+                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Disponible</td>
+                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Detalles</td>
+                </tr>
+            </thead>
+            <tbody>
+                {%for producto in productos.items %}
+                <tr>
+                    <td class="head-item" >{{ producto.codigo}}</td>
+                    <td class="head-item" >{{ producto.lote}}</td>
+                    <td class="head-item" >{{ producto.descripcion | title}}</td>
+                    <td class="head-item" >{{ producto.stock | int}}</td>
+                    <td class="head-item" >{{ producto.reserva | int}}</td>
+                    <td class="head-item" >{{ (producto.stock - producto.reserva) | int }}</td>
+                    <td class="head-item" >
+                        <a href="/detalle/{{producto.codigo}}/{{producto.lote}}" class="btn btn-outline-primary"
+                            style="display:flex; justify-content:center; align-items:center;height:25px; width:65px;">Detalle</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <footer style="display:flex ; justify-content:center">
+            <div>
+                <div class="Paginacion">
+                    <ul style="list-style: none;">
+                        <li style="display: inline-block;">
+                        {% if normal %}
+                            {% if pagina-5>0 %}
+                                <a class="paginacion-item" href="/busqueda/{{pagina-5}}"><<</a>
+                            {% else %}
+                                <a class="paginacion-item" href="/busqueda/1"><<</a>
+                            {% endif %}  
+                        {% else %}
+                            {% if pagina <= 1 %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1"><<</a>
+                            {% else %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pagina - 5}}"><<</a>
+                            {% endif %}  
+                        {% endif %}
+                        </li>
+                        <li style="display: inline-block;">
+                        {% if normal %}
+                            {% if pagina <= 1 %}
+                                <a class="paginacion-item" href="/busqueda/1"><</a>
+                            {% else %}
+                                <a class="paginacion-item" href="/busqueda/{{pagina - 1}}"><</a>
+                            {% endif %}  
+                        {% else %}
+                            {% if pagina <= 1 %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1"><</a>
+                            {% else %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pagina - 1}}"><</a>
+                            {% endif %}  
+                        {% endif %}
+                        </li>
+                        <li style="display: inline-block;">
+                            <a class="paginacion-item" href="#">{{pagina}}</a>
+                        </li>
+                        <li style="display: inline-block;">
+                        {% if normal %}
+                            <a class="paginacion-item" href="/busqueda/{{pagina + 1}}">></a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pagina + 1}}">></a>
+                        {% endif %}
+                        </li>
+                        <li style="display: inline-block;">
+                        {% if normal %}
+                            <a class="paginacion-item" href="/busqueda/{{pagina + 5}}">>></a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pagina + 5}}">>></a>
+                        {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

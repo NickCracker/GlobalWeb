@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="{{url_for('static',filename='js/main.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/detalle.css') }}">
+    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+    <title>Inventario Global</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color:#2c3e50">
+        <div class="container-fluid">
+            <label class="navbar-brand">
+                <div class="logo">
+                    <img src="{{ url_for('static',filename='img/Global.PNG')}}" style="width: 60px;">
+                    <label class="titulo">Global pharma</label>
+                </div>
+            </label>
+          </div>
+        </div>
+    </nav>
+    
+    <div class="detalle-container">
+        <p id="codigo" style="display:none;">{{producto.codigo}}</p>
+        <div class="detalle-ficha">
+            <table class="table table-striped" style="border: 2px solid #2c3e50; background-color:#fff">
+                <tbody>
+                    <tr class="detalle-tr">
+                        <td class="detalle-td" style="font-size:large;color:aliceblue;justify-content:center;background-color:#00a1f1">Detalles</td>
+                    </tr>
+                    <tr class="detalle-tr">
+                        <td class="detalle-td">Codigo: {{producto.codigo}}</td>
+                    </tr>
+                    <tr class="detalle-tr">
+                        <td class="detalle-td">Clase : {{producto.clase}}</td>
+                    </tr>
+                    <tr class="detalle-tr">
+                        <td class="detalle-td">Subclase : {{producto.subclase}}</td>
+                    </tr>
+                    <tr class="detalle-tr">
+                        <td class="detalle-td">Laboratorio : {{producto.laboratorio | title}}</td>
+                    </tr>
+                    <tr class="detalle-tr">
+                        <td class="detalle-td">Bodega : {{producto.bodega | title}}</td>
+                    </tr>
+                    <tr class="detalle-tr">
+                        <td class="detalle-td">Ubicacion : {{producto.ubicacion | title}}</td>
+                    </tr>
+                    <tr class="detalle-tr">
+                        <td class="detalle-td">Precio : ${{producto.precio | int(10) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="detalle-image">
+            <button class="round" type="button" onclick="anterior()"><<</button>
+            <img id="foto" width="240px" height="260px" alt="" style="padding:5px" onerror="Error()">
+            <button class="round" type="button" onclick="siguiente()">>></button>
+        </div>
+    </div>
+</body>
+</html>
