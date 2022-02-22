@@ -16,7 +16,7 @@ from flask import request
 from flask import session
 
 #Funcion de carga de datos JSON
-route = '.conexion.json'
+route = 'conn.json'
 def carga(ruta):
     with open(ruta) as contenido:
         datos = json.load(contenido)
