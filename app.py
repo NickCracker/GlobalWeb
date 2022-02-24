@@ -105,8 +105,7 @@ def Permitir_acceso():
 #PAGINA 2: REGISTRO / RENDERIZA LA PAGINA DEL REGISTRO Y ENVIA LOS DATOS
 @app.route('/registro')
 def Registro():
-    form = Formulario2()
-    return render_template('registro.html',form=form)
+    return render_template('registro.html')
 
 #PAGINA 2: REGISTRO / EVALUA SI LOS DATOS INGRESADOS SON VALIDOS Y REDIRECCIONA EN FUNCION DE ELLOS
 @app.route('/Registrar', methods=['POST'])
@@ -118,12 +117,12 @@ def Registrar():
         correo = request.form['correo']
         contraseña = str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))
         if not '' in [nombre,apellido,usuario,correo,contraseña] :
-            usuario_nuevo = Usuario(nombre=nombre,apellido=apellido,usuario=usuario,correo=correo,contraseña=contraseña)
-            db.session.add(usuario_nuevo)
-            db.session.commit()
+            usuario_nuevo = Usuario( nombre=nombre, apellido=apellido, usuario=usuario, correo=correo, contraseña=contraseña)
             msg = Message("Se ha registrado con exito",sender=app.config['MAIL_USERNAME'],recipients=[correo])
             msg.html = render_template('email.html', clave = contraseña)
             mail.send(msg)
+            db.session.add(usuario_nuevo)
+            db.session.commit()
             return redirect(url_for('Login'))
         return redirect(url_for('Login'))
 
