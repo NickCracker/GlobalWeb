@@ -125,7 +125,6 @@ def Registrar():
             msg.html = render_template('email.html', clave = contraseña)
             mail.send(msg)
             return redirect(url_for('Login'))
-        flash('No se ha añadido el nuevo usuario')
         return redirect(url_for('Login'))
 
 #PAGINA 2: REGISTRO / RETORNA AL LOGIN EN CASO DE QUE EL USUARIO ASI LO QUIERA
