@@ -138,7 +138,7 @@ def Buscador(pagina=1):
     if 'username' in session:
         per_page = 25
         productos = Producto.query.add_columns(Producto.codigo,Producto.descripcion,Producto.stock,Producto.reserva,Producto.lote).order_by(Producto.descripcion).paginate(pagina,per_page,False)
-        return render_template('buscador.html',productos=productos,pagina=pagina,normal=True)
+        return render_template('buscador.html',productos=productos,normal=True,page=productos.page,pages=productos.pages,prev=productos.has_prev,next=productos.has_next)
     else:
         return redirect(url_for("Login"))
 
@@ -150,10 +150,10 @@ def Buscar(pagina=1,anterior=''):
     if request.method == 'POST':
         entrada = request.form['entrada']
         productos = Producto.query.add_columns(Producto.codigo,Producto.descripcion,Producto.stock,Producto.reserva,Producto.lote).filter(Producto.descripcion.like(''+entrada+'%')).order_by(Producto.descripcion).paginate(pagina,25,False)
-        return render_template('buscador.html',productos=productos,pagina=pagina,normal=False,entrada=entrada)
+        return render_template('buscador.html',productos=productos,pagina=pagina,normal=False,entrada=entrada,page=productos.page,pages=productos.pages,prev=productos.has_prev,next=productos.has_next)
     if request.method == 'GET':
         productos = Producto.query.add_columns(Producto.codigo,Producto.descripcion,Producto.stock,Producto.reserva,Producto.lote).filter(Producto.descripcion.like(''+anterior+'%')).order_by(Producto.descripcion).paginate(pagina,25,False)
-        return render_template('buscador.html',productos=productos,pagina=pagina,normal=False,entrada=anterior)
+        return render_template('buscador.html',productos=productos,pagina=pagina,normal=False,entrada=anterior,page=productos.page,pages=productos.pages,prev=productos.has_prev,next=productos.has_next)
 
 #PAGINA 4: DETALLE / MUESTRA EL RESTO DE DATOS DEL PRODUCTO SELECCIONADO EN EL BUSCADOR
 #DEBO CAMBIAR LA PRIMARY KEY POR EL LOTE, EN CASO DE NO TENER LOTE BUSCAR POR CODIGO

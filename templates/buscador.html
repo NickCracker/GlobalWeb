@@ -57,55 +57,76 @@
             </tbody>
         </table>
         <footer style="display:flex ; justify-content:center">
-            <div>
+            <div>    
                 <div class="Paginacion">
                     <ul style="list-style: none;">
                         <li style="display: inline-block;">
-                        {% if normal %}
-                            {% if pagina-5>0 %}
-                                <a class="paginacion-item" href="/busqueda/{{pagina-5}}"><<</a>
-                            {% else %}
+                            {% if normal %}
+                                {% if page-5>0 %}
+                                <a class="paginacion-item" href="/busqueda/{{page - 5}}"><<</a>
+                                {% else %}
                                 <a class="paginacion-item" href="/busqueda/1"><<</a>
-                            {% endif %}  
-                        {% else %}
-                            {% if pagina <= 1 %}
+                                {% endif %}
+                            {% else %}
+                                {% if page-5>0 %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page - 5}}"><<</a>
+                                {% else %}
                                 <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1"><<</a>
-                            {% else %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pagina - 5}}"><<</a>
-                            {% endif %}  
-                        {% endif %}
+                                {% endif %}
+                            {% endif %}
                         </li>
                         <li style="display: inline-block;">
-                        {% if normal %}
-                            {% if pagina <= 1 %}
+                            {% if normal %}
+                                {% if prev %}
+                                <a class="paginacion-item" href="/busqueda/{{page - 1}}"><</a>
+                                {% else %}
                                 <a class="paginacion-item" href="/busqueda/1"><</a>
+                                {% endif %}
                             {% else %}
-                                <a class="paginacion-item" href="/busqueda/{{pagina - 1}}"><</a>
-                            {% endif %}  
-                        {% else %}
-                            {% if pagina <= 1 %}
+                                {% if prev %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page - 1}}"><</a>
+                                {% else %}
                                 <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1"><</a>
+                                {% endif %}
+                            {% endif %}
+                            
+                        </li>
+
+                        <li style="display: inline-block;">
+                            <a class="paginacion-item" href="#">{{page}}</a>
+                        </li>
+
+                        <li style="display: inline-block;">
+                            {% if normal %}
+                                {% if next %}
+                                <a class="paginacion-item" href="/busqueda/{{page + 1}}">></a>
+                                {% else %}
+                                <a class="paginacion-item" href="/busqueda/{{pages}}">></a>
+                                {% endif %}
                             {% else %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pagina - 1}}"><</a>
-                            {% endif %}  
-                        {% endif %}
+                                {% if next %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page + 1}}">></a>
+                                {% else %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pages}}">></a>
+                                {% endif %}
+                            {% endif %}
+                            
                         </li>
                         <li style="display: inline-block;">
-                            <a class="paginacion-item" href="#">{{pagina}}</a>
-                        </li>
-                        <li style="display: inline-block;">
-                        {% if normal %}
-                            <a class="paginacion-item" href="/busqueda/{{pagina + 1}}">></a>
-                        {% else %}
-                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pagina + 1}}">></a>
-                        {% endif %}
-                        </li>
-                        <li style="display: inline-block;">
-                        {% if normal %}
-                            <a class="paginacion-item" href="/busqueda/{{pagina + 5}}">>></a>
-                        {% else %}
-                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pagina + 5}}">>></a>
-                        {% endif %}
+                            {% if normal %}
+                                {% if page+5>pages %}
+                                <a class="paginacion-item" href="/busqueda/{{pages}}">>></a>
+                                {% else %}
+                                <a class="paginacion-item" href="/busqueda/{{page + 5}}">>></a>
+                                {% endif %}
+                            {% else %}
+                                {% if page+5>pages %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pages}}">>></a>
+                                {% else %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page + 5}}">>></a>
+                                {% endif %}
+                            {% endif %}
+                            
                         </li>
                     </ul>
                 </div>
