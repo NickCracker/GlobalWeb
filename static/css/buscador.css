@@ -30,11 +30,17 @@
 
 .paginacion-item{
     display:block;
-    padding: 10px 30px;
-    color: #fff;
-    background-color: #00a1f1;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+    color: #000;
+    background-color: aliceblue;
     text-decoration: none;
-    border-radius: 15px ;
+    border: 3px solid black;
+    width: 60px;
+    height: 40px;
 }
 
 .paginacion-item a:hover{

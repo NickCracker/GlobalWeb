@@ -62,6 +62,13 @@
                     <ul style="list-style: none;">
                         <li style="display: inline-block;">
                             {% if normal %}
+                                <a class="paginacion-item" href="/busqueda/1">Inicio</a>
+                            {% else %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1">Inicio</a>
+                            {% endif %}
+                        </li>
+                        <li style="display: inline-block;">
+                            {% if normal %}
                                 {% if page-5>0 %}
                                 <a class="paginacion-item" href="/busqueda/{{page - 5}}"><<</a>
                                 {% else %}
@@ -127,6 +134,13 @@
                                 {% endif %}
                             {% endif %}
                             
+                        </li>
+                        <li style="display: inline-block;">
+                            {% if normal %}
+                                <a class="paginacion-item" href="/busqueda/{{pages}}">Final</a>
+                            {% else %}
+                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pages}}">Final</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
