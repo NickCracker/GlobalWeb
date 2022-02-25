@@ -114,6 +114,7 @@ def Registro():
     else:
         return render_template('registro.html',form=form)
 
+
 #PAGINA 2: REGISTRO / RETORNA AL LOGIN EN CASO DE QUE EL USUARIO ASI LO QUIERA
 @app.route('/Volver')
 def Volver():
@@ -145,10 +146,11 @@ def Buscar(pagina=1,anterior=''):
 
 #PAGINA 4: DETALLE / MUESTRA EL RESTO DE DATOS DEL PRODUCTO SELECCIONADO EN EL BUSCADOR
 #DEBO CAMBIAR LA PRIMARY KEY POR EL LOTE, EN CASO DE NO TENER LOTE BUSCAR POR CODIGO
+@app.route('/detalle/<string:codigo>')
 @app.route('/detalle/<string:codigo>/<string:lote>')
-def Mostrar_detalle(codigo,lote):
+def Mostrar_detalle(codigo,lote=""):
     if 'username' in session:
-        if lote != 'SL':
+        if lote != 'SL' and lote != "":
             producto = Producto.query.filter(Producto.lote==lote).first()
             return render_template('detalle.html',producto=producto)
         else:

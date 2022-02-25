@@ -16,7 +16,7 @@
             <label class="navbar-brand" href="#">
                 <div class="logo">
                     <img src="https://raw.githubusercontent.com/NickCracker/Global/main/assets/Global.png" style="width: 60px;">
-                    <a class="titulo" href="/busqueda">Global pharma</a>
+                    <a class="titulo" href="/busqueda">Global Pharma</a>
                 </div>
             </label>
             <form class="d-flex" action="/busqueda/buscar/1" method="POST" style="padding-right: 15px;">
@@ -43,20 +43,26 @@
                 {%for producto in productos.items %}
                 <tr>
                     <td class="head-item" >{{ producto.codigo}}</td>
-                    <td class="head-item" >{{ producto.lote}}</td>
+                    <td class="head-item" >{{ producto.lote }}</td>
                     <td class="head-item" >{{ producto.descripcion | title}}</td>
                     <td class="head-item" >{{ producto.stock | int}}</td>
                     <td class="head-item" >{{ producto.reserva | int}}</td>
                     <td class="head-item" >{{ (producto.stock - producto.reserva) | int }}</td>
                     <td class="head-item" >
+                        {% if "/" in producto.lote %}
+                        <a href="/detalle/{{producto.codigo}}" class="btn btn-outline-primary"
+                            style="display:flex; justify-content:center; align-items:center;height:25px; width:65px;">Detalle</a>
+                        {% else %}
                         <a href="/detalle/{{producto.codigo}}/{{producto.lote}}" class="btn btn-outline-primary"
                             style="display:flex; justify-content:center; align-items:center;height:25px; width:65px;">Detalle</a>
+                        {% endif %}
+                        
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <footer style="display:flex ; justify-content:center">
+        <footer style="display:flex ; justify-content:center; padding-top:20px">
             <div>    
                 <div class="Paginacion">
                     <ul style="list-style: none;">
