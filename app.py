@@ -8,20 +8,13 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
 from flask import Flask
-from flask import flash
 from flask import redirect
 from flask import url_for
 from flask import render_template
 from flask import request
 from flask import session
 
-#Funcion de carga de datos JSON
-route = 'conn.json'
-def carga(ruta):
-    with open(ruta) as contenido:
-        datos = json.load(contenido)
-        return datos    
-datos = carga(route)
+datos=json.load(open('.data.json'))
 
 #Datos para la conexion con SQL Server
 s = datos.get('server','')
