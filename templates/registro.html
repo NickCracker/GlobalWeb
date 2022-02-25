@@ -25,21 +25,21 @@
             <div class="register-form">
                 <form action="/Registrar", method="POST">
                     <div class="register-image">
-                        <img src="https://raw.githubusercontent.com/NickCracker/Global/main/assets/Global.png" style="width: 110px;"><br>
+                        <img src="https://raw.githubusercontent.com/NickCracker/Global/main/assets/Global.png" style="width: 110px; margin-bottom:5px;margin-top:5px"><br>
                     </div>
                     
                         <label class="text">Nombre</label><br>
-                        <input style="width:300px;" type="text" name="nombre"><br>
+                        <p>{{form.nombre(size=25)}}</p>
                         <label class="text">Apellido</label><br>
-                        <input style="width:300px;" type="text" name="apellido"><br>
+                        <p>{{form.apellido(size=25)}}</p>
                         <label class="text">Usuario</label><br>
-                        <input style="width:300px;" type="text" name="usuario"><br>
+                        <p>{{form.usuario(size=25)}}</p>
                         <label class="text">Correo</label><br>
-                        <input style="width:300px;" type="text" name="correo"><br>
+                        <p>{{form.correo(size=25)}}</p>
                     
                     <div class="register-button">
-                        <button type="submit" class="btn btn-info">Registrarse</button>
-                        <a class="btn btn-secondary" href="/">Volver</a>
+                        <button type="submit" class="btn btn-info" style="margin-right: 35px;">Registrarse</button>
+                        <a class="btn btn-secondary" href="/" style="margin-left: 5px;">Volver</a>
                     </div>
                 </form>
             </div>

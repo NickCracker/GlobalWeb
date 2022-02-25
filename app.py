@@ -105,7 +105,8 @@ def Permitir_acceso():
 #PAGINA 2: REGISTRO / RENDERIZA LA PAGINA DEL REGISTRO Y ENVIA LOS DATOS
 @app.route('/registro')
 def Registro():
-    return render_template('registro.html')
+    form = Formulario2()
+    return render_template('registro.html',form=form)
 
 #PAGINA 2: REGISTRO / EVALUA SI LOS DATOS INGRESADOS SON VALIDOS Y REDIRECCIONA EN FUNCION DE ELLOS
 @app.route('/Registrar', methods=['POST'])
