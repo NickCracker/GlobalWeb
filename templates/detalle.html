@@ -53,26 +53,10 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        
-        <!--
-            <div class="detalle-ficha">
-            <ul style="list-style: none;">
-                <li>CODIGO :{{producto.codigo}}</li>
-                <li>CLASE :{{producto.clase}}</li>
-                <li>SUBCLASE :{{producto.subclase}}</li>
-                <li>LABORATORIO :{{producto.laboratorio | title}}</li>
-                <li>BODEGA :{{producto.bodega | title}}</li>
-                <li>UBICACION :{{producto.ubicacion | title}}</li>
-                <li>PRECIO :{{producto.precio | int(10)}}</li>
-            </ul>
-        </div>
-        -->
-        
-        
+        </div>        
         <div class="detalle-image">
             <button class="round" type="button" onclick="anterior()"><<</button>
-            <img id="foto" src="https://raw.githubusercontent.com/NickCracker/Global/main/static/img/image-not-found.png" width="240px" height="260px" alt="" style="padding:5px" onerror="Error()">
+            <img class="imagen" id="foto" src="https://raw.githubusercontent.com/NickCracker/Global/main/static/img/image-not-found.png" onerror="Error()">
             <button class="round" type="button" onclick="siguiente()">>></button>
         </div>
     </div>

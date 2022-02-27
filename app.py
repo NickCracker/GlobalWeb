@@ -59,7 +59,7 @@ class Usuario(db.Model):
     usuario=db.Column(String(50))
     contraseña=db.Column(String(50))
     
-class Formulario(FlaskForm):
+class Formulario_login(FlaskForm):
     usuario = StringField("Usuario",[validators.data_required(message='Dato requerido')])
     contraseña = PasswordField("Contraseña",validators=[DataRequired()])
     
@@ -75,34 +75,32 @@ app.secret_key=datos.get("clave","")
 
 @app.route('/', methods=['GET','POST'])
 def Login():
-    form = Formulario()
+    formulario = Formulario_login()
     if 'username' in session:
         session.pop('username')
         return redirect(url_for('Login'))
     else:
-        if request.method == 'POST' and form.validate_on_submit():
-            usuario= form.usuario.data
-            contraseña = form.contraseña.data
+        if request.method == 'POST' and formulario.validate_on_submit():
+            usuario= formulario.usuario.data
+            contraseña = formulario.contraseña.data
             query = Usuario.query.filter(Usuario.usuario == usuario)
             for resultado in query :
-                print(resultado.contraseña)
                 if resultado.contraseña == contraseña:
                     session['username'] = usuario
-                    print(session['username'])
                     return redirect(url_for('Buscador'))
                 else:
                     return redirect(url_for('Login'))
         else:
-            return render_template('login.html',form=form)
+            return render_template('login.html',form=formulario)
 
 @app.route('/registro',methods=['GET','POST'])
 def Registro():
-    form = Formulario2()
-    if request.method == 'POST' and form.validate:
-        nombre = form.nombre.data
-        apellido = form.apellido.data
-        usuario = form.usuario.data
-        correo = form.correo.data
+    formulario = Formulario2()
+    if request.method == 'POST' and formulario.validate:
+        nombre = formulario.nombre.data
+        apellido = formulario.apellido.data
+        usuario = formulario.usuario.data
+        correo = formulario.correo.data
         contraseña = str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))
         usuario_nuevo = Usuario( nombre=nombre, apellido=apellido, usuario=usuario, correo=correo, contraseña=contraseña)
         msg = Message("Se ha registrado con exito",sender=app.config['MAIL_USERNAME'],recipients=[correo])
@@ -112,13 +110,7 @@ def Registro():
         db.session.commit()
         return redirect(url_for('Login'))
     else:
-        return render_template('registro.html',form=form)
-
-
-#PAGINA 2: REGISTRO / RETORNA AL LOGIN EN CASO DE QUE EL USUARIO ASI LO QUIERA
-@app.route('/Volver')
-def Volver():
-    return redirect(url_for("Login"))
+        return render_template('registro.html',form=formulario)
 
 #PAGINA 3: BUSCADOR / REALIZA LA CONSULTA A LA BASE DE DATOS Y RENDERIZA LA TABLA
 @app.route('/busqueda')

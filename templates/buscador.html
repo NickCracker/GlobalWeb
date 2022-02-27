@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg" style="background-color:#2c3e50">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <label class="navbar-brand" href="#">
                 <div class="logo">
@@ -27,34 +27,32 @@
         </div>
     </nav>
     <div class="buscador-container">
-        <table class="table table-striped" style="border: #2c3e50 solid ;">
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Codigo</td>
-                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Lote</td>
-                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Producto</td>
-                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Stock</td>
-                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Reserva</td>
-                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Disponible</td>
-                    <td class="head-item" style="background-color: #00a1f1; color:aliceblue; ">Detalles</td>
+                    <td class="head-item" >Codigo</td>
+                    <td class="head-item" >Lote</td>
+                    <td class="head-item" >Producto</td>
+                    <td class="head-item" >Stock</td>
+                    <td class="head-item" >Reserva</td>
+                    <td class="head-item" >Disponible</td>
+                    <td class="head-item" >Detalles</td>
                 </tr>
             </thead>
             <tbody>
                 {%for producto in productos.items %}
                 <tr>
-                    <td class="head-item" >{{ producto.codigo}}</td>
-                    <td class="head-item" >{{ producto.lote }}</td>
-                    <td class="head-item" >{{ producto.descripcion | title}}</td>
-                    <td class="head-item" >{{ producto.stock | int}}</td>
-                    <td class="head-item" >{{ producto.reserva | int}}</td>
-                    <td class="head-item" >{{ (producto.stock - producto.reserva) | int }}</td>
-                    <td class="head-item" >
+                    <td class="body-item" >{{ producto.codigo}}</td>
+                    <td class="body-item" >{{ producto.lote }}</td>
+                    <td class="body-item" >{{ producto.descripcion | title}}</td>
+                    <td class="body-item" >{{ producto.stock | int}}</td>
+                    <td class="body-item" >{{ producto.reserva | int}}</td>
+                    <td class="body-item" >{{ (producto.stock - producto.reserva) | int }}</td>
+                    <td class="body-item-button">
                         {% if "/" in producto.lote %}
-                        <a href="/detalle/{{producto.codigo}}" class="btn btn-outline-primary"
-                            style="display:flex; justify-content:center; align-items:center;height:25px; width:65px;">Detalle</a>
+                        <a href="/detalle/{{producto.codigo}}" class="btn btn-outline-primary">Detalle</a>
                         {% else %}
-                        <a href="/detalle/{{producto.codigo}}/{{producto.lote}}" class="btn btn-outline-primary"
-                            style="display:flex; justify-content:center; align-items:center;height:25px; width:65px;">Detalle</a>
+                        <a href="/detalle/{{producto.codigo}}/{{producto.lote}}" class="btn btn-outline-primary">Detalle</a>
                         {% endif %}
                         
                     </td>
@@ -62,95 +60,89 @@
                 {% endfor %}
             </tbody>
         </table>
-        <footer style="display:flex ; justify-content:center; padding-top:20px">
-            <div>    
-                <div class="Paginacion">
-                    <ul style="list-style: none;">
-                        <li style="display: inline-block;">
-                            {% if normal %}
-                                <a class="paginacion-item" href="/busqueda/1">Inicio</a>
-                            {% else %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1">Inicio</a>
-                            {% endif %}
-                        </li>
-                        <li style="display: inline-block;">
-                            {% if normal %}
-                                {% if page-5>0 %}
-                                <a class="paginacion-item" href="/busqueda/{{page - 5}}"><<</a>
-                                {% else %}
-                                <a class="paginacion-item" href="/busqueda/1"><<</a>
-                                {% endif %}
-                            {% else %}
-                                {% if page-5>0 %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page - 5}}"><<</a>
-                                {% else %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1"><<</a>
-                                {% endif %}
-                            {% endif %}
-                        </li>
-                        <li style="display: inline-block;">
-                            {% if normal %}
-                                {% if prev %}
-                                <a class="paginacion-item" href="/busqueda/{{page - 1}}"><</a>
-                                {% else %}
-                                <a class="paginacion-item" href="/busqueda/1"><</a>
-                                {% endif %}
-                            {% else %}
-                                {% if prev %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page - 1}}"><</a>
-                                {% else %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1"><</a>
-                                {% endif %}
-                            {% endif %}
-                            
-                        </li>
+        <footer class="final">    
+            <ul>
+                <li>
+                    {% if normal %}
+                        <a class="paginacion-item" href="/busqueda/1">Inicio</a>
+                    {% else %}
+                        <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1">Inicio</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if normal %}
+                        {% if page-5>0 %}
+                            <a class="paginacion-item" href="/busqueda/{{page - 5}}"><<</a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/1"><<</a>
+                        {% endif %}
+                    {% else %}
+                        {% if page-5>0 %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page - 5}}"><<</a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1"><<</a>
+                        {% endif %}
+                    {% endif %}
+                </li>
+                <li>
+                    {% if normal %}
+                        {% if prev %}
+                            <a class="paginacion-item" href="/busqueda/{{page - 1}}"><</a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/1"><</a>
+                        {% endif %}
+                    {% else %}
+                        {% if prev %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page - 1}}"><</a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/1"><</a>
+                        {% endif %}
+                    {% endif %}                        
+                </li>
 
-                        <li style="display: inline-block;">
-                            <a class="paginacion-item" href="#">{{page}}</a>
-                        </li>
+                <li>
+                    <a class="paginacion-item" href="#">{{page}}</a>
+                </li>
 
-                        <li style="display: inline-block;">
-                            {% if normal %}
-                                {% if next %}
-                                <a class="paginacion-item" href="/busqueda/{{page + 1}}">></a>
-                                {% else %}
-                                <a class="paginacion-item" href="/busqueda/{{pages}}">></a>
-                                {% endif %}
-                            {% else %}
-                                {% if next %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page + 1}}">></a>
-                                {% else %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pages}}">></a>
-                                {% endif %}
-                            {% endif %}
-                            
-                        </li>
-                        <li style="display: inline-block;">
-                            {% if normal %}
-                                {% if page+5>pages %}
-                                <a class="paginacion-item" href="/busqueda/{{pages}}">>></a>
-                                {% else %}
-                                <a class="paginacion-item" href="/busqueda/{{page + 5}}">>></a>
-                                {% endif %}
-                            {% else %}
-                                {% if page+5>pages %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pages}}">>></a>
-                                {% else %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page + 5}}">>></a>
-                                {% endif %}
-                            {% endif %}
-                            
-                        </li>
-                        <li style="display: inline-block;">
-                            {% if normal %}
-                                <a class="paginacion-item" href="/busqueda/{{pages}}">Final</a>
-                            {% else %}
-                                <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pages}}">Final</a>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                <li>
+                    {% if normal %}
+                        {% if next %}
+                            <a class="paginacion-item" href="/busqueda/{{page + 1}}">></a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/{{pages}}">></a>
+                        {% endif %}
+                    {% else %}
+                        {% if next %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page + 1}}">></a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pages}}">></a>
+                        {% endif %}
+                    {% endif %}
+                </li>
+
+                <li>
+                    {% if normal %}
+                        {% if page+5>pages %}
+                            <a class="paginacion-item" href="/busqueda/{{pages}}">>></a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/{{page + 5}}">>></a>
+                        {% endif %}
+                    {% else %}
+                        {% if page+5>pages %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pages}}">>></a>
+                        {% else %}
+                            <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{page + 5}}">>></a>
+                        {% endif %}
+                    {% endif %}
+                </li>
+                <li>
+                    {% if normal %}
+                        <a class="paginacion-item" href="/busqueda/{{pages}}">Final</a>
+                    {% else %}
+                        <a class="paginacion-item" href="/busqueda/buscar/{{entrada}}/{{pages}}">Final</a>
+                    {% endif %}
+                </li>
+            </ul>
         </footer>
     </div>
 </body>
