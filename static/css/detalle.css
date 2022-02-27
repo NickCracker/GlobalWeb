@@ -59,8 +59,10 @@ nav{
     transform: translateX(-50%) translateY(-50%);
 }
 
-.table .table-striped{
-    height: 355px;
+.detalle-ficha table{
+    height: 335px;
+    border: 2px solid #2c3e50; 
+    background-color:#fff;
 }
 
 .detalle-td{
