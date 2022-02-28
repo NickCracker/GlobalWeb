@@ -33,8 +33,7 @@
                     <td class="head-item" >Codigo</td>
                     <td class="head-item" >Lote</td>
                     <td class="head-item" >Producto</td>
-                    <td class="head-item" >Stock</td>
-                    <td class="head-item" >Reserva</td>
+                    <td class="head-item" >Bodega</td>
                     <td class="head-item" >Disponible</td>
                     <td class="head-item" >Detalles</td>
                 </tr>
@@ -45,8 +44,7 @@
                     <td class="body-item" >{{ producto.codigo}}</td>
                     <td class="body-item" >{{ producto.lote }}</td>
                     <td class="body-item" >{{ producto.descripcion | title}}</td>
-                    <td class="body-item" >{{ producto.stock | int}}</td>
-                    <td class="body-item" >{{ producto.reserva | int}}</td>
+                    <td class="body-item" >{{ producto.bodega | title}}</td>
                     <td class="body-item" >{{ (producto.stock - producto.reserva) | int }}</td>
                     <td class="body-item-button">
                         {% if "/" in producto.lote %}

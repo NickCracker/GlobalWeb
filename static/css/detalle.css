@@ -35,7 +35,7 @@ nav{
     width: 400px;
     height: 355px;
     position: absolute;
-    left : -75%;
+    left : -65%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
     display: flex;
