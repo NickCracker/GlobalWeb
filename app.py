@@ -30,15 +30,15 @@ ir = datos.get('imagenes','')
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'mssql+pyodbc://{0}:{1}@{2}/{3}?driver={4}'.format(u,c,s,b,d)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
-app.config['MAIL_SERVER']= 'smtp.gmail.com'
-app.config['MAIL_PORT']= 587
-app.config['MAIL_USE_SSL']=False
-app.config['MAIL_USE_TLS']=True
-app.config['MAIL_USERNAME']=datos.get('correo','')
-app.config['MAIL_PASSWORD']=datos.get('cc','')
+#app.config['MAIL_SERVER']= 'smtp.gmail.com'
+#app.config['MAIL_PORT']= 587
+#app.config['MAIL_USE_SSL']=False
+#app.config['MAIL_USE_TLS']=True
+#app.config['MAIL_USERNAME']=datos.get('correo','')
+#app.config['MAIL_PASSWORD']=datos.get('cc','')
 
 db = SQLAlchemy(app)
-mail = Mail()
+#mail = Mail()
 
 class Producto (db.Model):
     __tablename__ = 'INVENTARIO_WEB'
@@ -75,7 +75,7 @@ class Formulario_registro(FlaskForm):
     contraseña = PasswordField("Contraseña",[validators.data_required(),validators.length(min=4,max=4)])
 
 db.init_app(app)
-mail.init_app(app)
+#mail.init_app(app)
 app.secret_key=datos.get("clave","")
 
 @app.route('/', methods=['GET','POST'])
