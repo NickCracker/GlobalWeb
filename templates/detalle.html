@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="{{url_for('static',filename='js/main.js')}}"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/detalle.css') }}">
     <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
     <title>Inventario Global</title>
@@ -24,6 +24,7 @@
     
     <div class="detalle-container">
         <p id="codigo" style="display:none;">{{producto.codigo}}</p>
+        <p id="ruta" style="display:none;">{{ruta}}</p>
         <div class="detalle-ficha">
             <table class="table table-striped">
                 <tbody>
@@ -49,16 +50,20 @@
                         <td class="detalle-td">Ubicacion : {{producto.ubicacion | title}}</td>
                     </tr>
                     <tr class="detalle-tr">
-                        <td class="detalle-td">Precio : ${{producto.precio | int(10) }}</td>
+                        <td class="detalle-td">Precio : ${{precio}}</td>
+                    </tr>
+                    <tr class="detalle-tr">
+                        <td class="detalle-td">Costo : ${{costo}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>        
         <div class="detalle-image">
             <button class="round" type="button" onclick="anterior()"><<</button>
-            <img class="imagen" id="foto" src="https://raw.githubusercontent.com/NickCracker/Global/main/static/img/image-not-found.png" onerror="Error()">
+            <img id="foto" width="270px" height="280px" style="margin:15px" onerror="Error()">
             <button class="round" type="button" onclick="siguiente()">>></button>
         </div>
     </div>
 </body>
+
 </html>

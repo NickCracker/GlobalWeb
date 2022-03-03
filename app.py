@@ -25,6 +25,7 @@ b = datos.get('database','')
 u = datos.get('user','')
 c = datos.get('password','')
 d = datos.get('driver','')
+ir = datos.get('imagenes','')
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'mssql+pyodbc://{0}:{1}@{2}/{3}?driver={4}'.format(u,c,s,b,d)
@@ -66,7 +67,7 @@ class Formulario_login(FlaskForm):
     usuario = StringField("Usuario",[validators.data_required(message='Dato requerido')])
     contraseña = PasswordField("Contraseña",validators=[DataRequired()])
     
-class Formulario2(FlaskForm):
+class Formulario_registro(FlaskForm):
     nombre = StringField("Nombre",[validators.data_required(), validators.length(min=3,max=25)])
     apellido = StringField("Apellido",[validators.data_required(), validators.length(min=3,max=25)])
     usuario = StringField("Usuario",[validators.data_required()])
@@ -98,7 +99,7 @@ def Login():
 
 @app.route('/registro',methods=['GET','POST'])
 def Registro():
-    formulario = Formulario2()
+    formulario = Formulario_registro()
     if request.method == 'POST' and formulario.validate:
         nombre = formulario.nombre.data
         apellido = formulario.apellido.data
@@ -122,8 +123,8 @@ def Registro():
 def Buscador(pagina=1):
     if 'username' in session:
         per_page = 25
-        productos2 = Producto.query.add_columns(Producto.codigo,Producto.descripcion,Producto.bodega,Producto.stock,Producto.reserva,Producto.lote).order_by(Producto.descripcion).paginate(pagina,per_page,False)
-        return render_template('buscador.html',productos=productos2,normal=True,page=productos2.page,pages=productos2.pages,prev=productos2.has_prev,next=productos2.has_next)
+        productos = Producto.query.add_columns(Producto.codigo,Producto.descripcion,Producto.bodega,Producto.stock,Producto.reserva,Producto.lote).order_by(Producto.descripcion).paginate(pagina,per_page,False)
+        return render_template('buscador.html',productos=productos,normal=True,page=productos.page,pages=productos.pages,prev=productos.has_prev,next=productos.has_next)
     else:
         return redirect(url_for("Login"))
 
@@ -134,11 +135,11 @@ def Buscador(pagina=1):
 def Buscar(pagina=1,anterior=''):
     if request.method == 'POST':
         entrada = request.form['entrada']
-        productos2 = Producto.query.add_columns(Producto.codigo,Producto.descripcion,Producto.bodega,Producto.stock,Producto.reserva,Producto.lote).filter(Producto.descripcion.like(''+entrada+'%')).order_by(Producto.descripcion).paginate(pagina,25,False)
-        return render_template('buscador.html',productos=productos2,pagina=pagina,normal=False,entrada=entrada,page=productos2.page,pages=productos2.pages,prev=productos2.has_prev,next=productos2.has_next)
+        productos = Producto.query.add_columns(Producto.codigo,Producto.descripcion,Producto.bodega,Producto.stock,Producto.reserva,Producto.lote).filter(Producto.descripcion.like(''+entrada+'%')).order_by(Producto.descripcion).paginate(pagina,25,False)
+        return render_template('buscador.html',productos=productos,pagina=pagina,normal=False,entrada=entrada,page=productos.page,pages=productos.pages,prev=productos.has_prev,next=productos.has_next)
     if request.method == 'GET':
-        productos2 = Producto.query.add_columns(Producto.codigo,Producto.descripcion,Producto.bodega,Producto.stock,Producto.reserva,Producto.lote).filter(Producto.descripcion.like(''+anterior+'%')).order_by(Producto.descripcion).paginate(pagina,25,False)
-        return render_template('buscador.html',productos=productos2,pagina=pagina,normal=False,entrada=anterior,page=productos2.page,pages=productos2.pages,prev=productos2.has_prev,next=productos2.has_next)
+        productos = Producto.query.add_columns(Producto.codigo,Producto.descripcion,Producto.bodega,Producto.stock,Producto.reserva,Producto.lote).filter(Producto.descripcion.like(''+anterior+'%')).order_by(Producto.descripcion).paginate(pagina,25,False)
+        return render_template('buscador.html',productos=productos,pagina=pagina,normal=False,entrada=anterior,page=productos.page,pages=productos.pages,prev=productos.has_prev,next=productos.has_next)
 
 #PAGINA 4: DETALLE / MUESTRA EL RESTO DE DATOS DEL PRODUCTO SELECCIONADO EN EL BUSCADOR
 #DEBO CAMBIAR LA PRIMARY KEY POR EL LOTE, EN CASO DE NO TENER LOTE BUSCAR POR CODIGO
@@ -147,11 +148,16 @@ def Buscar(pagina=1,anterior=''):
 def Mostrar_detalle(codigo,lote=""):
     if 'username' in session:
         if lote != 'SL' and lote != "":
-            producto2 = Producto.query.filter(Producto.lote==lote).first()
-            return render_template('detalle.html',producto=producto2)
+            producto = Producto.query.filter(Producto.lote==lote).first()
+            precio = '{:,.0f}'.format(producto.precio)
+            costo = '{:,.0f}'.format(producto.costo)
+            return render_template('detalle.html',producto=producto,precio=precio,costo=costo,ruta=ir)
+
         else:
-            producto2 = Producto.query.filter(Producto.codigo==codigo).first()
-            return render_template('detalle.html',producto=producto2)
+            producto = Producto.query.filter(Producto.codigo==codigo).first()
+            precio = '{:,.0f}'.format(producto.precio)
+            costo = '{:,.0f}'.format(producto.costo)
+            return render_template('detalle.html',producto=producto,precio=precio,costo=costo,ruta=ir)
     else:
         return redirect(url_for('Login'))
 
