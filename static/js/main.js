@@ -1,5 +1,6 @@
 /* CODIGO QUE REALIZA LA PAGINA (detalle.html) APENAS ARRANCA*/ 
 var posicion;
+/*
 window.onload = function() {
     var code = document.getElementById("codigo").innerHTML;
     var ruta = document.getElementById("ruta").innerHTML;
@@ -31,6 +32,12 @@ window.onload = function() {
       foto.src = ruta+"Div6/"+code+"/"+code+"_1.jpg";
       posicion=6
     }
+}*/
+
+window.onload = function() {
+    var code = document.getElementById("codigo").innerHTML;
+    var foto = document.getElementById("foto");
+    foto.src = "/static/img/Productos/"+code+"/"+code+"_1.jpg";    
 }
 
 function Error() {
