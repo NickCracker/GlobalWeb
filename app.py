@@ -72,6 +72,7 @@ class Formulario_registro(FlaskForm):
     apellido = StringField("Apellido",[validators.data_required(), validators.length(min=3,max=25)])
     usuario = StringField("Usuario",[validators.data_required()])
     correo = EmailField("Correo",[validators.data_required()])
+    contraseña = PasswordField("Contraseña",[validators.data_required(),validators.length(min=4,max=4)])
 
 db.init_app(app)
 mail.init_app(app)
@@ -89,7 +90,8 @@ def Login():
             contraseña = formulario.contraseña.data
             query = Usuario.query.filter(Usuario.usuario == usuario)
             for resultado in query :
-                if check_password_hash(resultado.contraseña,contraseña):
+                #if check_password_hash(resultado.contraseña,contraseña):
+                if resultado.contraseña == contraseña:
                     session['username'] = usuario
                     return redirect(url_for('Buscador'))
                 else:
@@ -105,12 +107,13 @@ def Registro():
         apellido = formulario.apellido.data
         usuario = formulario.usuario.data
         correo = formulario.correo.data
-        aleatorio = str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))
-        contraseña = generate_password_hash(aleatorio,'pbkdf2:sha256')
+        contraseña = formulario.contraseña.data
+        #aleatorio = str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))
+        #contraseña = generate_password_hash(aleatorio,'pbkdf2:sha256')
         usuario_nuevo = Usuario( nombre=nombre, apellido=apellido, usuario=usuario, correo=correo, contraseña=contraseña)
-        msg = Message("Se ha registrado con exito",sender=app.config['MAIL_USERNAME'],recipients=[correo])
-        msg.html = render_template('email.html', clave=aleatorio)
-        mail.send(msg)
+        #msg = Message("Se ha registrado con exito",sender=app.config['MAIL_USERNAME'],recipients=[correo])
+        #msg.html = render_template('email.html', clave=aleatorio)
+        #mail.send(msg)
         db.session.add(usuario_nuevo)
         db.session.commit()
         return redirect(url_for('Login'))
